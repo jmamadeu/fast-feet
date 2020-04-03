@@ -35,7 +35,7 @@ Consiste na gestão absoluta de administradores, entregadores, encomendas
   - [celebrate]() - Para validação dos dados do lado do servidor
   - [sqlite3]() - Banco de dados usado
   - [jsonwebtoken]() - Para envio de token de autenticação
-  - [bcripytj]() - Para encriptação de palavra passe
+  - [bcripytjs]() - Para encriptação de palavra passe
 
   #### Notas Importantes
 
