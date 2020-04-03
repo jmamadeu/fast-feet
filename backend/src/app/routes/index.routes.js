@@ -7,8 +7,9 @@ const User = require('../models/User');
 routes.use('/sessions', SessionRoutes);
 
 routes.get('/', async (req, res) => {
-  const response = await User.findAll();
-  return res.json(response);
+  const response = await User.getAllUsers();
+
+  return res.status(response.statusCode).json(response);
 });
 
 module.exports = routes;
