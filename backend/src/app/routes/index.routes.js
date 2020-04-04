@@ -1,15 +1,9 @@
 const routes = require('express').Router();
 
 const SessionRoutes = require('./Session.routes');
-
-const User = require('../models/User');
+const RecipientRoutes = require('./Recipients.routes');
 
 routes.use('/sessions', SessionRoutes);
-
-routes.get('/', async (req, res) => {
-  const response = await User.getAllUsers();
-
-  return res.status(response.statusCode).json(response);
-});
+routes.use('/recipients', RecipientRoutes);
 
 module.exports = routes;

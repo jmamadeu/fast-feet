@@ -3,7 +3,6 @@ const cors = require('cors');
 const { errors } = require('celebrate');
 
 const routes = require('./app/routes/index.routes');
-require('./database');
 
 const app = express();
 

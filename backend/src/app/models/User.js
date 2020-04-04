@@ -1,6 +1,7 @@
 const dbConnection = require('../../database');
 
 const customMessages = require('../utils/returnMessages');
+const returnFiltersTemplate = require('../utils/returnFiltersTemplate');
 
 class User {
   static async getAllUsers() {
@@ -14,24 +15,25 @@ class User {
 
       return response;
     } catch (err) {
-      return customMessages.unknownError();
+      return customMessages.unknownError({});
     }
   }
 
-  static async getOneUser(filters, params) {
+  static async getOneUser(filters = [], params) {
     try {
+      filters = returnFiltersTemplate.returnTemplateFilters(filters);
       const user = await dbConnection.dbGet(
         `SELECT * FROM tb_users WHERE ${filters}`,
         params
       );
 
       if (!user) {
-        return customMessages.notFound('Usuário inexistente!');
+        return customMessages.notFound({ message: 'Usuário inexistente!' });
       }
 
       return customMessages.successfullyReceived({ data: user, total: 1 });
     } catch (err) {
-      return customMessages.unknownError();
+      return customMessages.unknownError({});
     }
   }
 }

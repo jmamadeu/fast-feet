@@ -1,11 +1,11 @@
 const User = require('../models/User');
-const Token = require('../libs/Token');
+const Token = require('../../libs/Token');
 
 module.exports = {
   async store(req, res) {
     const { email, password } = req.body;
 
-    let response = await User.getOneUser(`user_email = ?`, [email]);
+    let response = await User.getOneUser(['user_email'], [email]);
 
     if (response.success) {
       const hashPassword = Token.compareTokenPassword(
