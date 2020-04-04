@@ -31,7 +31,7 @@ class User {
         return customMessages.notFound({ message: 'Usuário inexistente!' });
       }
 
-      return customMessages.successfullyReceived({ data: user, total: 1 });
+      return customMessages.foundSuccessfully({ data: user });
     } catch (err) {
       return customMessages.unknownError({});
     }
