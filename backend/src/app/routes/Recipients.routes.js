@@ -7,10 +7,12 @@ const verifyIdRecipientMiddleware = require('../middlewares/custom/verifyIdRecip
 
 const authMiddleware = require('../middlewares/authMiddleware');
 const verifyIdRecipient = require('../middlewares/verifyIdRecipientExists');
+const verifyPagination = require('../middlewares/custom/verifyPagination');
 
 routes.use(authMiddleware);
 
-routes.get('/', RecipientController.index);
+routes.get('/', verifyPagination, RecipientController.index);
+
 routes.get('/:id', verifyIdRecipientMiddleware, RecipientController.show);
 
 routes.post(

@@ -14,7 +14,8 @@ module.exports = {
   },
 
   async index(req, res) {
-    const response = await Recipient.getAllRecipient();
+    const { page = 1, items_page = 5 } = req.query;
+    const response = await Recipient.getAllRecipient({ page, items_page });
 
     return res.status(response.statusCode).json(response);
   },

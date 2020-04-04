@@ -28,15 +28,21 @@ class Recipient {
     }
   }
 
-  static async getAllRecipient() {
+  static async getAllRecipient({ page = 1, items_page = 5 }) {
+    const newPage = page * items_page - items_page;
+
     try {
       const recipients = await dbConnection.dbAll(
-        'SELECT * FROM tb_recipients'
+        `SELECT * FROM tb_recipients LIMIT ${newPage},${items_page}`
+      );
+
+      const recipients_total = await dbConnection.dbAll(
+        `SELECT * FROM tb_recipients`
       );
 
       return returnMessages.successfullyReceived({
         data: recipients,
-        total: recipients.length,
+        total: recipients_total.length,
         message: 'Dados dos recipientes carregados com sucesso!'
       });
     } catch (err) {

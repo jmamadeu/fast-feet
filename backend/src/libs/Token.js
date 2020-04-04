@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcryp = require('bcryptjs');
+const crypto = require('crypto');
 
 const authConfig = require('../configs/auth');
 
@@ -28,6 +29,12 @@ class Token {
         }
       });
     });
+  }
+
+  static generateId() {
+    const password = crypto.randomBytes(4).toString('HEX');
+
+    return password;
   }
 }
 
