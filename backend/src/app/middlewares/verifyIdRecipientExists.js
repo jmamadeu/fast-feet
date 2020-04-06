@@ -1,4 +1,4 @@
-const Recipient = require('../models/Recipients');
+const Recipient = require('../models/Recipient');
 const returnMessages = require('../utils/returnMessages');
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
     if (response.data) {
       const response = returnMessages.alreadExists({
         message: 'O Destinatário, já existe!',
-        data: req.body
+        data: req.body,
       });
 
       return res.status(response.statusCode).json(response);
@@ -26,7 +26,7 @@ module.exports = {
 
     if (!response.data) {
       const response = returnMessages.notFound({
-        message: 'O Destinatário não existe!'
+        message: 'O Destinatário não existe!',
       });
 
       return res.status(response.statusCode).json(response);
@@ -44,12 +44,12 @@ module.exports = {
 
     if (response.data && response.data.rec_id !== req.params.id) {
       const response = returnMessages.alreadExists({
-        message: 'Já existe um destinatário com esta identificação!'
+        message: 'Já existe um destinatário com esta identificação!',
       });
 
       return res.status(response.statusCode).json(response);
     }
 
     next();
-  }
+  },
 };

@@ -3,30 +3,30 @@ const Token = require('../../libs/Token');
 const returnMessages = require('../utils/returnMessages');
 const returnFiltersTemplate = require('../utils/returnFiltersTemplate');
 
-class Courier {
-  static async getOneCourier(filters = [], params = []) {
+class DeliveryMan {
+  static async getOneDeliveryMan(filters = [], params = []) {
     filters = returnFiltersTemplate.returnTemplateFilters(filters);
 
     try {
-      const courier = await dbConnection.dbGet(
-        `SELECT * FROM tb_couries WHERE ${filters}`,
+      const DeliveryMan = await dbConnection.dbGet(
+        `SELECT * FROM tb_delivery_guys WHERE ${filters}`,
         params
       );
 
-      if (!courier) {
+      if (!DeliveryMan) {
         return returnMessages.notFound({ message: 'O Entregador não existe!' });
       }
 
       return returnMessages.foundSuccessfully({
         message: 'Entregador encontrado com êxito!',
-        data: courier
+        data: DeliveryMan,
       });
     } catch (error) {
       return returnMessages.unknownError({});
     }
   }
 
-  static async createCourier({ name, avatar_id = '', email }) {
+  static async createDeliveryMan({ name, avatar_id = '', email }) {
     const newId = Token.generateId();
 
     const date = new Date()
@@ -35,25 +35,21 @@ class Courier {
       .replace('/', '')
       .replace(',', '');
     try {
-      await dbConnection.dbRun(`INSERT INTO tb_couries VALUES(?,?,?,?,?,?)`, [
-        newId,
-        name,
-        avatar_id,
-        email,
-        date,
-        date
-      ]);
+      await dbConnection.dbRun(
+        `INSERT INTO tb_delivery_guys VALUES(?,?,?,?,?,?)`,
+        [newId, name, avatar_id, email, date, date]
+      );
 
       return returnMessages.successfullyCreated({
         data: {
-          cour_id: newId,
-          cour_name: name,
-          cour_avatar_id: avatar_id,
-          cour_created_at: date,
-          cour_updated_at: date
+          del_id: newId,
+          del_name: name,
+          del_avatar_id: avatar_id,
+          del_created_at: date,
+          del_updated_at: date,
         },
         message: 'O entregador foi criado com êxito!',
-        total: 1
+        total: 1,
       });
     } catch (error) {
       return returnMessages.unknownError({});
@@ -61,4 +57,4 @@ class Courier {
   }
 }
 
-module.exports = Courier;
+module.exports = DeliveryMan;

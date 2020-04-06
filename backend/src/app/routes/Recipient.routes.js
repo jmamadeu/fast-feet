@@ -1,6 +1,6 @@
 const routes = require('express').Router();
 
-const RecipientController = require('../controllers/RecipientsController');
+const RecipientController = require('../controllers/RecipientController');
 
 const verifyDataRecipients = require('../middlewares/custom/verifyDataRecipients');
 const verifyIdRecipientMiddleware = require('../middlewares/custom/verifyIdRecipient');

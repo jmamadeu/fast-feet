@@ -1,4 +1,4 @@
-const Recipient = require('../models/Recipients');
+const Recipient = require('../models/Recipient');
 
 module.exports = {
   async store(req, res) {
@@ -34,5 +34,5 @@ module.exports = {
     const response = await Recipient.updateRecipient({ id, ...req.body });
 
     return res.status(response.statusCode).json(response);
-  }
+  },
 };
