@@ -13,10 +13,7 @@ routes.use(authMiddleware);
 
 routes.post(
   '/',
-  (req, res, next) => {
-    console.log(req.body);
-    upload.single('avatar_id');
-  },
+  upload.single('avatar_id'),
   DeliveryManMiddleware.verifyIdBeforeInsert,
   DeliveryManController.store
 );
