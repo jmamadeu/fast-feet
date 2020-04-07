@@ -14,6 +14,7 @@ routes.use(authMiddleware);
 routes.post(
   '/',
   upload.single('avatar_id'),
+  DeliveryManMiddleware.verifyData,
   DeliveryManMiddleware.verifyIdBeforeInsert,
   DeliveryManController.store
 );

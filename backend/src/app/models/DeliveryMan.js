@@ -76,6 +76,7 @@ class DeliveryMan {
           del_email: email,
           del_created_at: date,
           del_updated_at: date,
+          del_avatar_url: `${appConfig.url}files/avatars/${avatar_id}`,
         },
         message: 'O entregador foi criado com êxito!',
         total: 1,

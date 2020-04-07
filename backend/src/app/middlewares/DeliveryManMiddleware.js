@@ -6,17 +6,31 @@ const path = require('path');
 const returnMessages = require('../utils/returnMessages');
 
 module.exports = {
-  verifyData: celebrate({
-    [Segments.BODY]: Joi.object().keys({
-      name: Joi.string()
-        .required()
-        .error(new Error('Por favor, insira um nome válido!')),
-      email: Joi.string()
-        .email()
-        .required()
-        .error(new Error('Por favor insira um email válido!')),
-    }),
-  }),
+  async verifyData(req, res, next) {
+    const { name, email } = req.body;
+
+    if (typeof name !== 'string' || name.toString().length < 3) {
+      const response = returnMessages.unknownError({
+        message: 'Insira um nome válido!',
+      });
+
+      return res.status(response.statusCode).json(response);
+    }
+
+    if (
+      typeof email !== 'string' ||
+      !email.toString().includes('@') ||
+      !email.toString().includes('.')
+    ) {
+      const response = returnMessages.unknownError({
+        message: 'Insira um email válido!',
+      });
+
+      return res.status(response.statusCode).json(response);
+    }
+
+    next();
+  },
 
   async verifyIdBeforeInsert(req, res, next) {
     const { email } = req.body;
