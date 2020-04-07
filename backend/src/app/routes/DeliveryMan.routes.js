@@ -19,6 +19,22 @@ routes.post(
   DeliveryManController.store
 );
 
+routes.put(
+  '/:id',
+  upload.single('avatar_id'),
+  DeliveryManMiddleware.verifyData,
+  DeliveryManMiddleware.verifyId,
+  DeliveryManMiddleware.verifyDataBeforeUpdate,
+  DeliveryManController.update
+);
+
+routes.delete(
+  '/:id',
+  DeliveryManMiddleware.verifyId,
+  DeliveryManController.delete
+);
+
 routes.get('/', DeliveryManController.index);
+routes.get('/:id', DeliveryManMiddleware.verifyId, DeliveryManController.show);
 
 module.exports = routes;
