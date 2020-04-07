@@ -9,7 +9,7 @@ class Recipient {
     city,
     address,
     phone,
-    identifiyer
+    identifiyer,
   }) {
     try {
       await dbConnection.dbRun(
@@ -21,7 +21,7 @@ class Recipient {
 
       return returnMessages.successfullyUpdated({
         message: 'O destinatário foi actualizado com êxito!',
-        data: user.data
+        data: user.data,
       });
     } catch (err) {
       return returnMessages.unknownError({});
@@ -43,7 +43,7 @@ class Recipient {
       return returnMessages.successfullyReceived({
         data: recipients,
         total: recipients_total.length,
-        message: 'Dados dos recipientes carregados com sucesso!'
+        message: 'Dados dos recipientes carregados com sucesso!',
       });
     } catch (err) {
       return returnMessages.unknownError({});
@@ -53,18 +53,18 @@ class Recipient {
   static async deleteRecipient(id) {
     try {
       await dbConnection.dbRun('DELETE FROM tb_recipients WHERE rec_id = ?', [
-        id
+        id,
       ]);
 
       return returnMessages.successfullyDeleted({
-        message: 'O destinatário foi removido com êxito!'
+        message: 'O destinatário foi removido com êxito!',
       });
     } catch (err) {
       return returnMessages.unknownError({});
     }
   }
 
-  static async getOneRecipient(filters = [], params) {
+  static async getOneRecipient(filters = [], params = []) {
     try {
       filters = returnFiltersTemplate.returnTemplateFilters(filters);
 
@@ -75,13 +75,13 @@ class Recipient {
 
       if (!recipient) {
         return returnMessages.notFound({
-          message: 'O destinatário não foi encontrado!'
+          message: 'O destinatário não foi encontrado!',
         });
       }
 
       return returnMessages.foundSuccessfully({
         message: 'Destinatário encontrado com êxito!',
-        data: recipient
+        data: recipient,
       });
     } catch (err) {
       return returnMessages.unknownError({});
@@ -91,7 +91,7 @@ class Recipient {
   static async createRecipient({ name, city, address, phone, identifiyer }) {
     try {
       const {
-        lastID
+        lastID,
       } = await dbConnection.dbRun(
         'INSERT INTO tb_recipients (rec_name, rec_city, rec_address, rec_phone, rec_identifiyer) VALUES( ?, ?, ?, ?, ?)',
         [name, city, address, phone, identifiyer]
@@ -104,13 +104,13 @@ class Recipient {
           rec_city: city,
           rec_address: address,
           rec_phone: phone,
-          rec_identifiyer: identifiyer
+          rec_identifiyer: identifiyer,
         },
-        message: 'Destinatário cadastrado com êxito!'
+        message: 'Destinatário cadastrado com êxito!',
       });
     } catch (err) {
       return returnMessages.unknownError({
-        message: 'Aconteceu um erro inesperado, tente novamente!'
+        message: 'Aconteceu um erro inesperado, tente novamente!',
       });
     }
   }
